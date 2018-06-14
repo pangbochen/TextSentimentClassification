@@ -23,12 +23,16 @@ def evaluate_mixed(model, clf, test_iter, opt):
     :return: accuracy
     '''
     model.eval()
-    label_fetures = torch.LongTensor()
     global cum_tensor
-    cum_tensor = torch.Tensor()
+    if opt.use_cuda:
+        cum_tensor = torch.Tensor().cuda()
+        label_fetures = torch.LongTensor().cuda()
+    else:
+        cum_tensor = torch.Tensor()
+        label_fetures = torch.LongTensor()
     for index, batch in enumerate(test_iter):
-        if index > 2:  # for test use
-            break
+        # if index > 2:  # for test use
+        #     break
         text = batch.text[0] # for torchtext
         model(text)
         if opt.mix_model:
@@ -37,7 +41,6 @@ def evaluate_mixed(model, clf, test_iter, opt):
     if opt.use_cuda:
         test_X = cum_tensor.data.cpu().numpy()
         test_y = label_fetures.data.cpu().numpy()
-
     else:
         test_X = cum_tensor.data.numpy()
         test_y = label_fetures.data.numpy()
@@ -70,8 +73,7 @@ if __name__ == '__main__':
     opt = opts.parse_opt()
 
     # opt.use_cuda = torch.cuda.is_available()
-    opt.use_cuda = False
-
+    opt.use_cuda = True
     # 是否适用混合模型
     opt.mix_model = True
 
@@ -84,7 +86,10 @@ if __name__ == '__main__':
 
     # setting for mixed_model
     global cum_tensor
-    cum_tensor = torch.Tensor()
+    if opt.use_cuda:
+        cum_tensor = torch.Tensor().cuda()
+    else:
+        cum_tensor = torch.Tensor()
 
 
     # visdom
@@ -123,13 +128,17 @@ if __name__ == '__main__':
 
     for i in range(opt.max_epoch):
         if opt.mix_model:
-            cum_tensor = torch.Tensor()
-            label_fetures = torch.LongTensor()
+            if opt.use_cuda:
+                cum_tensor = torch.Tensor().cuda()
+                label_fetures = torch.LongTensor().cuda()
+            else:
+                cum_tensor = torch.Tensor()
+                label_fetures = torch.LongTensor()
         print("Start training Epoch {} ".format(i))
         for train_epoch, batch in enumerate(train_iter):
-
-            if train_epoch > 3:
-                break
+            # for test use
+            # if train_epoch > 3:
+            #     break
 
             start_epoch = time.time()
             # print(batch.label.size())
@@ -168,17 +177,6 @@ if __name__ == '__main__':
                 # vis loss
                 vis.plot('loss', loss_data)
 
-
-        # evaluate on test for this epoch
-        # accuracy = evaluate(model, test_iter, opt)
-        # vis.log("{} EPOCH, accuaracy : {}".format(i, accuracy))
-        # vis.plot('accuracy', accuracy)
-        #
-        # # handel best model, update best model , best_lstm.pth
-        # if accuracy > best_accuaracy:
-        #     best_accuaracy = accuracy
-        #     torch.save(model.state_dict(), './best_{}.pth'.format(opt.model))
-
         # handle mix classification model problem
         if opt.mix_model:
             # train model
@@ -189,16 +187,31 @@ if __name__ == '__main__':
             else:
                 train_X = cum_tensor.data.numpy()
                 train_y = label_fetures.data.numpy()
+            print(train_X.size)
+            print(train_y.size)
             feature_clf.fit(train_X, train_y)
             # finish model
             print("Finish model for epoch {}".format(i))
             # evaluate model with custom classification model
             # erase cum_features
-            cum_tensor = torch.Tensor()
+            if opt.use_cuda:
+                cum_tensor = torch.Tensor().cuda()
+            else:
+                cum_tensor = torch.Tensor()
             print(cum_tensor.size())
             mixed_model_accuaracy = evaluate_mixed(model, feature_clf, test_iter, opt)
             vis.log("{} EPOCH, mixed model accuaracy : {}".format(i, mixed_model_accuaracy))
             vis.plot('mixed model accuracy', mixed_model_accuaracy)
             print("{} EPOCH, mixed model accuaracy : {}".format(i, mixed_model_accuaracy))
+
+        # # evaluate on test for this epoch use the fc layer of nn as the classifier
+        # accuracy = evaluate(model, test_iter, opt)
+        # vis.log("{} EPOCH, accuaracy : {}".format(i, accuracy))
+        # vis.plot('accuracy', accuracy)
+        #
+        # # handel best model, update best model , best_lstm.pth
+        # if accuracy > best_accuaracy:
+        #     best_accuaracy = accuracy
+        #     torch.save(model.state_dict(), './best_{}.pth'.format(opt.model))
 
     print('best accuracy: {}'.format(best_accuaracy))

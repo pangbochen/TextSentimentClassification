@@ -14,13 +14,14 @@ from tqdm import tqdm
 opt = opts.parse_opt()
 
 # opt.use_cuda = torch.cuda.is_available()
-opt.use_cuda = False
+opt.use_cuda = True
+
 
 # select model
 # opt.model = 'lstm'
 #opt.model = 'cnn'
 
-opt.model = 'bilstm'
+opt.model = 'lstm'
 
 opt.env = opt.model
 

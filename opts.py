@@ -27,7 +27,7 @@ def parse_opt():
                         help='name of dataset, imdb as default')
     parser.add_argument('--keep_dropout', type=float, default=0.8,
                         help='rate of keep dropout')
-    parser.add_argument('--max_epoch', type=int, default=20,
+    parser.add_argument('--max_epoch', type=int, default=40,
                         help='number of training epoch')
     parser.add_argument('--embedding_file', type=str, default="glove.6b.300",
                         help='the pretrained embedding file, for torchtext, glove as default')

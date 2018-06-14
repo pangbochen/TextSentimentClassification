@@ -1,0 +1,66 @@
+:0614_114007]user config:
+[0614_114007]env mixed_lstm
+[0614_114007]hidden_dim 128
+[0614_114007]max_seq_len 200
+[0614_114007]batch_size 64
+[0614_114007]embedding_dim 100
+[0614_114007]grad_clip 0.1
+[0614_114007]learning_rate 2e-05
+[0614_114007]model lstm
+[0614_114007]dataset imdb
+[0614_114007]keep_dropout 0.8
+[0614_114007]max_epoch 40
+[0614_114007]embedding_file glove.6b.300
+[0614_114007]embedding_training False
+[0614_114007]kernel_sizes [1, 3, 3]
+[0614_114007]kernel_nums [256, 256, 256]
+[0614_114007]lstm_mean mean
+[0614_114007]lstm_layers 1
+[0614_114007]embedding_dir .glove/glove.6B.300d.txt
+[0614_114007]from_torchtext False
+[0614_114007]gpu 1
+[0614_114007]use_cuda True
+[0614_114007]mix_model True
+[0614_114510]0 EPOCH, mixed model accuaracy : 0.53072
+[0614_114936]1 EPOCH, mixed model accuaracy : 0.61764
+[0614_115357]2 EPOCH, mixed model accuaracy : 0.65576
+[0614_115805]3 EPOCH, mixed model accuaracy : 0.68784
+[0614_120144]4 EPOCH, mixed model accuaracy : 0.70896
+[0614_120506]5 EPOCH, mixed model accuaracy : 0.73272
+[0614_120818]6 EPOCH, mixed model accuaracy : 0.71492
+[0614_121129]7 EPOCH, mixed model accuaracy : 0.75372
+[0614_121427]8 EPOCH, mixed model accuaracy : 0.76796
+[0614_121708]9 EPOCH, mixed model accuaracy : 0.77612
+[0614_121949]10 EPOCH, mixed model accuaracy : 0.77824
+[0614_122228]11 EPOCH, mixed model accuaracy : 0.78452
+[0614_122459]12 EPOCH, mixed model accuaracy : 0.78916
+[0614_122726]13 EPOCH, mixed model accuaracy : 0.7938
+[0614_122951]14 EPOCH, mixed model accuaracy : 0.79576
+[0614_123210]15 EPOCH, mixed model accuaracy : 0.7998
+[0614_123428]16 EPOCH, mixed model accuaracy : 0.80888
+[0614_123645]17 EPOCH, mixed model accuaracy : 0.8104
+[0614_123900]18 EPOCH, mixed model accuaracy : 0.81444
+[0614_124116]19 EPOCH, mixed model accuaracy : 0.80456
+[0614_124330]20 EPOCH, mixed model accuaracy : 0.81636
+[0614_124542]21 EPOCH, mixed model accuaracy : 0.81936
+[0614_124751]22 EPOCH, mixed model accuaracy : 0.82028
+[0614_124958]23 EPOCH, mixed model accuaracy : 0.82256
+[0614_125205]24 EPOCH, mixed model accuaracy : 0.81744
+[0614_125411]25 EPOCH, mixed model accuaracy : 0.82244
+[0614_125620]26 EPOCH, mixed model accuaracy : 0.82052
+[0614_125826]27 EPOCH, mixed model accuaracy : 0.82396
+[0614_130031]28 EPOCH, mixed model accuaracy : 0.82584
+[0614_130234]29 EPOCH, mixed model accuaracy : 0.8274
+[0614_130435]30 EPOCH, mixed model accuaracy : 0.82736
+[0614_130635]31 EPOCH, mixed model accuaracy : 0.82956
+[0614_130835]32 EPOCH, mixed model accuaracy : 0.82996
+[0614_131032]33 EPOCH, mixed model accuaracy : 0.82908
+[0614_131232]34 EPOCH, mixed model accuaracy : 0.82772
+[0614_131427]35 EPOCH, mixed model accuaracy : 0.83176
+[0614_131620]36 EPOCH, mixed model accuaracy : 0.82564
+[0614_131814]37 EPOCH, mixed model accuaracy : 0.83116
+[0614_132007]38 EPOCH, mixed model accuaracy : 0.83208
+[0614_132158]39 EPOCH, mixed model accuaracy : 0.83264
+
+
+
